@@ -9,12 +9,12 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'pipenv --python python3 sync'
+                bat 'C:\\Users\\bkart\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pipenv --python python3 sync'
             }
         }
         stage('Test') {
             steps {
-                bat 'pipenv run pytest'
+                bat 'C:\\Users\\bkart\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pipenv run pytest'
             }
         }
         stage('Package') {
