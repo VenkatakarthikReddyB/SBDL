@@ -1,7 +1,12 @@
 pipeline {
     agent any
-
     stages {
+        stage('Verify Environment') {
+            steps {
+                bat 'echo %PATH%'
+            }
+        }
+
         stage('Build') {
             steps {
                 bat 'pipenv --python python3 sync'
