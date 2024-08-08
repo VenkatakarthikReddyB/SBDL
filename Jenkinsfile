@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Use 'bat' instead of 'sh' for Windows
-                bat 'pipenv --python python3 sync'
+                bat 'pipenv --python C:/Users/bkart/AppData/Local/Programs/Python/Python310/python.exe sync'
             }
         }
         stage('Test') {
