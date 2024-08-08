@@ -4,37 +4,47 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-               sh 'pipenv --python python3 sync'
+                // Use 'bat' instead of 'sh' for Windows
+                bat 'pipenv --python python3 sync'
             }
         }
         stage('Test') {
             steps {
-               sh 'pipenv run pytest'
+                // Use 'bat' instead of 'sh' for Windows
+                bat 'pipenv run pytest'
             }
         }
         stage('Package') {
-	    when{
-		    anyOf{ branch "master" ; branch 'release' }
-	    }
+            when {
+                anyOf { branch "master"; branch 'release' }
+            }
             steps {
-               sh 'zip -r sbdl.zip lib'
+                // Use 'bat' instead of 'sh' for Windows
+                bat 'powershell Compress-Archive -Path lib -DestinationPath sbdl.zip'
             }
         }
-	stage('Release') {
-	   when{
-	      branch 'release'
-	   }
-           steps {
-              sh "scp -i /home/prashant/cred/edge-node_key.pem -o 'StrictHostKeyChecking no' -r sbdl.zip log4j.properties sbdl_main.py sbdl_submit.sh conf prashant@40.117.123.105:/home/prashant/sbdl-qa"
-           }
+        stage('Release') {
+            when {
+                // Use a condition that is never true to skip this stage
+                expression { return false }
+            }
+            steps {
+                // Use 'bat' instead of 'sh' for Windows
+                bat """
+                pscp -i C:\\path\\to\\edge-node_key.ppk -r sbdl.zip log4j.properties sbdl_main.py sbdl_submit.sh conf prashant@40.117.123.105:/home/prashant/sbdl-qa
+                """
+            }
         }
-	stage('Deploy') {
-	   when{
-	      branch 'master'
-	   }
-           steps {
-               sh "scp -i /home/prashant/cred/edge-node_key.pem -o 'StrictHostKeyChecking no' -r sbdl.zip log4j.properties sbdl_main.py sbdl_submit.sh conf prashant@40.117.123.105:/home/prashant/sbdl-prod"
-           }
+        stage('Deploy') {
+            when {
+                branch 'master'
+            }
+            steps {
+                // Use 'bat' instead of 'sh' for Windows
+                bat """
+                pscp -i C:\\path\\to\\edge-node_key.ppk -r sbdl.zip log4j.properties sbdl_main.py sbdl_submit.sh conf prashant@40.117.123.105:/home/prashant/sbdl-prod
+                """
+            }
         }
     }
 }
