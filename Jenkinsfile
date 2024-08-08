@@ -5,13 +5,13 @@ pipeline {
         stage('Build') {
             steps {
                 // Use 'bat' instead of 'sh' for Windows
-                bat 'pipenv --python python3 sync'
+                bat 'pipenv --python C:/Users/bkart/AppData/Local/Programs/Python/Python310/python.exe sync'
             }
         }
         stage('Test') {
             steps {
                 // Use 'bat' instead of 'sh' for Windows
-                bat 'pipenv run pytest'
+                bat 'C:/Users/bkart/AppData/Local/Programs/Python/Python310/python.exe -m pipenv run pytest'
             }
         }
         stage('Package') {
