@@ -11,7 +11,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Use 'bat' instead of 'sh' for Windows
-                bat 'pipenv run pytest'
+                bat 'C:/Users/bkart/AppData/Local/Programs/Python/Python310/python.exe -m pipenv run pytest'
             }
         }
         stage('Package') {
